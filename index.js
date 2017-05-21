@@ -17,7 +17,7 @@ const options = {
     url: 'https://hooks.slack.com/services' + iot_config.bot_url,
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    json: {"text": iot_config.message}
+    json: {"text": iot_config.message, "channel": iot_config.channel}
 };
 
 
@@ -28,6 +28,8 @@ let subscription = button.addListener(() => {
 
     console.log('Clicked.. ' + nowStr);
 
+    logger.main.info(iot_config.mac_address);
+    logger.main.info(iot_config.channel);
     logger.main.info(iot_config.message);
 
     request(options, function (error, response, body) {
