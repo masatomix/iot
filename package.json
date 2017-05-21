@@ -1,0 +1,27 @@
+{
+  "name": "iot",
+  "version": "1.0.0",
+  "description": "iot application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masatomix/iot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masatomix/iot/issues"
+  },
+  "homepage": "https://github.com/masatomix/iot#readme",
+  "dependencies": {
+    "config": "^1.26.1",
+    "dash-button": "^2.0.0",
+    "log4js": "^1.1.1",
+    "moment": "^2.18.1",
+    "request": "^2.81.0"
+  }
+}
