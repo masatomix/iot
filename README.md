@@ -5,8 +5,8 @@
 
 
 
-サービス化するには
------------------
+## サービス化するには
+
 ### Systemd のファイルコピー
 $ sudo cp -pfr  ~/iot.service /etc/systemd/system/
 
@@ -22,8 +22,16 @@ iot.service                            enabled
 ```
 
 ### サービス起動
+
+
+```
 $ sudo systemctl start  iot
 
+```
 
 ### ログ参照
+
+
+```
 $ sudo journalctl  -f -u iot
+```
