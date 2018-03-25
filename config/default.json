@@ -1,10 +1,19 @@
 {
   "iot": {
-    "mac_address": "xx:xx:xx:xx:xx:xx",
-    "bot_url": "/xxxxxxxxx/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxx",
-    "message":"xxxxx",
-    "channel":"#general"
+    "buttons": {
+      "001": {
+        "mac_address": "xx:xx:xx:xx:xx:xx",
+        "bot_url": "/xxxxxxxxx/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxx",
+        "message": "xxxxx",
+        "channel": "#general"
+      },
+      "002": {
+        "mac_address": "yy:yy:yy:yy:yy:yy",
+        "bot_url": "/yyyyyyyyx/yyyyyyyyx/yyyyyyyyyyyyyyyyyyyyyyyy",
+        "message": "yyyyx",
+        "channel": "#general"
+      }
+    }
   }
 }
-
 
