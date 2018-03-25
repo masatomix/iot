@@ -1,6 +1,9 @@
-/**
- * Created by masatomix on 2017/05/20.
- */
+"use strict";
+
+
+const me = this;
+
+
 const config = require('config');
 const moment = require('moment');
 const request = require('request');
@@ -8,33 +11,52 @@ const logger = require('./logger');
 
 
 const iot_config = config.iot;
-
-const DashButton = require('dash-button');
-const button = new DashButton(iot_config.mac_address);
+const buttons_config = iot_config.buttons;
 
 
-const options = {
-    url: 'https://hooks.slack.com/services' + iot_config.bot_url,
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    json: {"text": iot_config.message, "channel": iot_config.channel}
+module.exports.pushButton = () => {
+    const buttons = {};
+    const options = {};
+
+    const DashButton = require('dash-button');
+
+    for (let property in buttons_config) {
+        const button = new DashButton(buttons_config[property].mac_address);
+        // const button = buttons_config[property].mac_address;
+        const option = {
+            url: 'https://hooks.slack.com/services' + buttons_config[property].bot_url,
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            json: {"text": buttons_config[property].message, "channel": buttons_config[property].channel}
+        };
+        buttons[property] = button;
+        options[property] = option;
+
+    }
+
+    for (let property in buttons) {
+        logger.main.debug(buttons[property]);
+        logger.main.debug(options[property]);
+    }
+
+
+    for (let property in buttons) {
+        buttons[property].addListener(() => {
+            const now = moment();
+            const nowStr = now.format("YYYY/MM/DD HH:mm:ss");
+            console.log('Clicked.. ' + property + " Button. " + nowStr);
+
+            logger.main.info(buttons_config[property].mac_address);
+            logger.main.info(buttons_config[property].channel);
+            logger.main.info(buttons_config[property].message);
+
+            request(options[property], function (error, response, body) {
+                if (!error) {
+                    console.log(body);
+                }
+            });
+        });
+    }
 };
 
-
-console.log('listen...');
-let subscription = button.addListener(() => {
-    const now = moment();
-    const nowStr = now.format("YYYY/MM/DD HH:mm:ss");
-
-    console.log('Clicked.. ' + nowStr);
-
-    logger.main.info(iot_config.mac_address);
-    logger.main.info(iot_config.channel);
-    logger.main.info(iot_config.message);
-
-    request(options, function (error, response, body) {
-        if (!error) {
-            console.log(body);
-        }
-    });
-});
+me.pushButton();

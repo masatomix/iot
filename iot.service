@@ -1,0 +1,16 @@
+[Unit]
+Description=IoT Button Check
+After=syslog.target network.target
+
+[Service]
+Type=simple
+#ExecStart=/usr/local/bin/npm start
+ExecStart=/usr/local/bin/node index.js
+WorkingDirectory=/home/pi/app/iot/
+KillMode=process
+Restart=always
+#User=pi
+#Group=pi
+
+[Install]
+WantedBy=multi-user.target
