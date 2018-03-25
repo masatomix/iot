@@ -22,9 +22,7 @@ $ sudo node index.js
 ```
 $ sudo cp -pfr  ./iot.service /etc/systemd/system/
 ```
-
-
-### 自動起動
+あとは自動起動設定
 
 ```
 $ sudo systemctl enable iot
@@ -34,15 +32,14 @@ $ sudo systemctl list-unit-files --type service | grep iot
 iot.service                            enabled
 ```
 
-### サービス起動
-
+サービスの起動は下記コマンドで。
 
 ```
 $ sudo systemctl start  iot
 
 ```
 
-### ログ参照
+最後にログの参照方法
 
 
 ```
