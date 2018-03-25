@@ -4,6 +4,7 @@
 
 https://qiita.com/masatomix/items/87d0d5f72668d9c76089
 
+あとは
 
 ```
 $ npm install
@@ -17,7 +18,10 @@ $ sudo node index.js
 ## サービス化したいばあい。
 
 ### Systemd のファイルコピー
-$ sudo cp -pfr  ~/iot.service /etc/systemd/system/
+
+```
+$ sudo cp -pfr  ./iot.service /etc/systemd/system/
+```
 
 
 ### 自動起動
