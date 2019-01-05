@@ -22,6 +22,7 @@ module.exports.pushButton = () => {
 
     for (let property in buttons_config) {
         const button = new DashButton(buttons_config[property].mac_address);
+        const json = buttons_config[property].json;
         const option = {
             url: buttons_config[property].bot_url,
             method: 'POST',
