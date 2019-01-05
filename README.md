@@ -21,13 +21,21 @@ $ cat config/local.json
         "mac_address": "xx:xx:xx:xx:xx:xx",
         "method": "POST",
         "url": "https://hooks.slack.com/services/xxxxxxxxx/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxx",
-         "json": "{}"
+        "headers": {"Content-Type": "application/json"},
+        "json": {
+          "text": "001ボタンを押しました。",
+          "channel": "#general"
+        }
       },
       "002": {
         "mac_address": "yy:yy:yy:yy:yy:yy",
         "method": "POST",
         "url": "https://hooks.slack.com/services/yyyyyyyyx/yyyyyyyyx/yyyyyyyyyyyyyyyyyyyyyyyy",
-        "json": "{}"
+        "headers": {"Content-Type": "application/json"},
+        "json": {
+          "text": "002ボタンを押しました。",
+          "channel": "#general"
+        }
       }
     }
   }
