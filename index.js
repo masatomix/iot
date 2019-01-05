@@ -22,10 +22,12 @@ module.exports.pushButton = () => {
 
     for (let property in buttons_config) {
         const button = new DashButton(buttons_config[property].mac_address);
+        const method = buttons_config[property].method;
+
         const json = buttons_config[property].json;
         const option = {
-            url: buttons_config[property].bot_url,
-            method: 'POST',
+            url: buttons_config[property].url,
+            method: method,
             headers: {'Content-Type': 'application/json'},
             json: JSON.parse(json)
         };
@@ -47,8 +49,6 @@ module.exports.pushButton = () => {
             console.log('Clicked.. ' + property + " Button. " + nowStr);
 
             logger.main.info(buttons_config[property].mac_address);
-            logger.main.info(buttons_config[property].channel);
-            logger.main.info(buttons_config[property].message);
 
             request(options[property], function (error, response, body) {
                 if (!error) {

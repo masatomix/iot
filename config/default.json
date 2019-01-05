@@ -3,16 +3,14 @@
     "buttons": {
       "001": {
         "mac_address": "xx:xx:xx:xx:xx:xx",
-        "bot_url": "https://hooks.slack.com/services/xxxxxxxxx/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxx",
-        "message": "xxxxx",
-        "channel": "#general",
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/xxxxxxxxx/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxx",
         "json": "{}"
       },
       "002": {
         "mac_address": "yy:yy:yy:yy:yy:yy",
-        "bot_url": "https://hooks.slack.com/services/yyyyyyyyx/yyyyyyyyx/yyyyyyyyyyyyyyyyyyyyyyyy",
-        "message": "yyyyx",
-        "channel": "#general",
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/yyyyyyyyx/yyyyyyyyx/yyyyyyyyyyyyyyyyyyyyyyyy",
         "json": "{}"
       }
     }
