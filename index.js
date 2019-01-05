@@ -22,18 +22,18 @@ module.exports.pushButton = () => {
 
     for (let property in buttons_config) {
         const button = new DashButton(buttons_config[property].mac_address);
-        const method = buttons_config[property].method;
-
-        const json = buttons_config[property].json;
-        const option = {
-            url: buttons_config[property].url,
-            method: method,
-            headers: {'Content-Type': 'application/json'},
-            json: JSON.parse(json)
-        };
         buttons[property] = button;
-        options[property] = option;
+        options[property] = buttons_config[property];
 
+        // const option = buttons_config[property];
+        // const method = buttons_config[property].method;
+        // const json = buttons_config[property].json;
+        // const option = {
+            // url: buttons_config[property].url,
+            // method: method,
+            // headers: {'Content-Type': 'application/json'},
+            // json: JSON.parse(json)
+        // };
     }
 
     for (let property in buttons) {
