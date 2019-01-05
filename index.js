@@ -22,12 +22,12 @@ module.exports.pushButton = () => {
 
     for (let property in buttons_config) {
         const button = new DashButton(buttons_config[property].mac_address);
-        // const button = buttons_config[property].mac_address;
+        const json = buttons_config[property].json;
         const option = {
-            url: 'https://hooks.slack.com/services' + buttons_config[property].bot_url,
+            url: buttons_config[property].bot_url,
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            json: {"text": buttons_config[property].message, "channel": buttons_config[property].channel}
+            json: JSON.parse(json)
         };
         buttons[property] = button;
         options[property] = option;
