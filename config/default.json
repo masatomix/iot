@@ -1,19 +1,53 @@
 {
   "iot": {
     "buttons": {
-      "001": {
+      "get_query": {
         "mac_address": "xx:xx:xx:xx:xx:xx",
-        "bot_url": "/xxxxxxxxx/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxx",
-        "message": "xxxxx",
-        "channel": "#general"
+        "method": "GET",
+        "url": "http://192.168.10.200:8000/xfc8quxf",
+        "headers": {"Content-Type": "application/json"},
+        "qs": {
+          "UsernameOrEmailAddress": "user",
+          "Password": "pass",
+          "param":"get_query",
+          "text":"テスト"
+        }
       },
-      "002": {
-        "mac_address": "yy:yy:yy:yy:yy:yy",
-        "bot_url": "/yyyyyyyyx/yyyyyyyyx/yyyyyyyyyyyyyyyyyyyyyyyy",
-        "message": "yyyyx",
-        "channel": "#general"
+      "post_body": {
+        "mac_address": "xx:xx:xx:xx:xx:xx",
+        "method": "POST",
+        "url": "http://192.168.10.200:8000/xfc8quxf",
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "body": "UsernameOrEmailAddress=user&Password=pass&param=post_body&text=テスト"
+      },
+      "post_form": {
+        "mac_address": "xx:xx:xx:xx:xx:xx",
+        "method": "POST",
+        "url": "http://192.168.10.200:8000/xfc8quxf",
+        "headers": {
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        "form": {
+          "UsernameOrEmailAddress": "user",
+          "Password": "pass",
+          "param":"post_form",
+          "text":"テスト"
+        }
+      },
+      "post_json": {
+        "mac_address": "xx:xx:xx:xx:xx:xx",
+        "method": "POST",
+        "url": "http://192.168.10.200:8000/xfc8quxf",
+        "headers": {"Content-Type": "application/json"},
+        "json": {
+          "UsernameOrEmailAddress": "user",
+          "Password": "pass",
+          "param":"post_json",
+          "text":"テスト"
+        }
       }
     }
   }
 }
-

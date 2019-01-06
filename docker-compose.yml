@@ -1,0 +1,8 @@
+version: '2'
+services:
+  iot_button:
+    build: ./
+    network_mode: "host"
+    volumes:
+      - ./logs:/home/iot/logs
+      - ./config:/home/iot/config
