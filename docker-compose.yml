@@ -5,3 +5,4 @@ services:
     network_mode: "host"
     volumes:
       - ./logs:/home/iot/logs
+      - ./config:/home/iot/config

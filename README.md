@@ -21,20 +21,28 @@ $ cat config/local.json
         "mac_address": "xx:xx:xx:xx:xx:xx",
         "method": "POST",
         "url": "https://hooks.slack.com/services/xxxxxxxxx/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxx",
-         "json": "{}"
+        "headers": {"Content-Type": "application/json"},
+        "json": {
+          "text": "001ボタンを押しました。",
+          "channel": "#general"
+        }
       },
       "002": {
         "mac_address": "yy:yy:yy:yy:yy:yy",
         "method": "POST",
         "url": "https://hooks.slack.com/services/yyyyyyyyx/yyyyyyyyx/yyyyyyyyyyyyyyyyyyyyyyyy",
-        "json": "{}"
+        "headers": {"Content-Type": "application/json"},
+        "json": {
+          "text": "002ボタンを押しました。",
+          "channel": "#general"
+        }
       }
     }
   }
 }
 ```
 
-こんな感じに設定を書くことで、ボタンを押下したときに任意のURLへリクエストを送信することが出来ます。(サンプルとしてdefault.jsonを置いてあります)
+こんな感じに設定を書くことで、ボタンを押下したときに任意のURLへリクエストを送信することが出来ます。(サンプルとしてdefault.jsonを置いてあります.またmac_address以下の部分は、requestライブラリに渡すoptionと同等)
 
 あとは
 
@@ -43,7 +51,7 @@ $ npm install
 $ sudo node index.js
 ```
 
-で起動すると思います。
+でプロセスが起動します。
 
 
 ## サービス化したいばあい。
@@ -93,4 +101,6 @@ $ sudo docker-compose up  -d
 
 - 1.0.0 新規
 - 1.0.3 Docker関連追加
+- 1.0.4 リファクタリングして、Slack以外のサイトにもrequestを送られるようにした
+
 
