@@ -97,7 +97,7 @@ $ sudo docker-compose build
 $ sudo docker-compose up  -d
 ```
 
-## 改訂棋歴
+## 改訂履歴
 
 - 1.0.0 新規
 - 1.0.3 Docker関連追加
