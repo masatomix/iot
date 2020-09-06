@@ -6,3 +6,5 @@ services:
     volumes:
       - ./logs:/home/iot/logs
       - ./config:/home/iot/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
