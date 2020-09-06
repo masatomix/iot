@@ -99,8 +99,7 @@ $ sudo docker-compose up  -d
 
 ## 改訂棋歴
 
-- 1.0.0 新規
+- 1.0.5 Elasticsearchへ送信
 - 1.0.3 Docker関連追加
-- 1.0.4 リファクタリングして、Slack以外のサイトにもrequestを送られるようにした
-
+- 1.0.0 新規
 
