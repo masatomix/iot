@@ -22,12 +22,14 @@ const firebaseApp = firebase.initializeApp(firebaseConfig)
 const DashButton = require('dash-button')
 
 module.exports.pushButton = async () => {
+  logger.main.debug('Amazon Dash Button の検知を開始します...')
+  const nic = settings.nic
   const buttons_config = await me.getButtonConfig()
-  
+
   for (let property in buttons_config) {
     for (let mac_address of buttons_config[property].mac_addresses) {
       const button = new DashButton(mac_address, {
-        networkInterface: settings.nic,
+        networkInterface: nic,
       })
       button.addListener(() => {
         const now = moment()
@@ -62,11 +64,6 @@ module.exports.postLog = (settings, sourceMacAddress, action, message) => {
 module.exports.getButtonConfig = async () => {
   const result = await firebase.auth().signInWithEmailAndPassword(userInfo.userId, userInfo.password)
   const user = firebase.auth().currentUser
-  // console.log(`displayName: ${user.displayName}`)
-  // console.log(`email: ${user.email}`)
-  // console.log(`emailVerified: ${user.emailVerified}`)
-  // console.log(`uid: ${user.uid}`)
-
   const buttons = {}
 
   try {
