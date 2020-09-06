@@ -1,51 +1,90 @@
-"use strict";
+'use strict'
 
+const me = this
 
-const me = this;
+const config = require('config')
+const moment = require('moment')
+const request = require('request')
+const logger = require('./logger')
 
+const iot_config = config.iot
+// const buttons_config = iot_config.buttons
 
-const config = require('config');
-const moment = require('moment');
-const request = require('request');
-const logger = require('./logger');
+const settings = config.settings
+const userInfo = config.userInfo
+const firebaseConfig = config.firebaseConfig
 
+const firebase = require('firebase/app')
+require('firebase/firestore')
+require('firebase/auth')
+const firebaseApp = firebase.initializeApp(firebaseConfig)
 
-const iot_config = config.iot;
-const buttons_config = iot_config.buttons;
+const DashButton = require('dash-button')
 
-
-module.exports.pushButton = () => {
-    const buttons = {};
-
-    const DashButton = require('dash-button');
-
-    for (let property in buttons_config) {
-        const button = new DashButton(buttons_config[property].mac_address);
-        buttons[property] = button;
+module.exports.pushButton = async () => {
+  const buttons_config = await me.getButtonConfig()
+  
+  for (let property in buttons_config) {
+    for (let mac_address of buttons_config[property].mac_addresses) {
+      const button = new DashButton(mac_address, {
+        networkInterface: settings.nic,
+      })
+      button.addListener(() => {
+        const now = moment()
+        const nowStr = now.format('YYYY/MM/DD HH:mm:ss')
+        console.log('Clicked.. ' + property + ' Button. ' + nowStr)
+        logger.main.info(mac_address)
+        me.postLog(settings, mac_address, 'ボタンが押されました', buttons_config[property].message)
+      })
     }
+  }
+}
 
-    for (let property in buttons) {
-        logger.main.debug(buttons[property]);
-        logger.main.debug(buttons_config[property]);
+module.exports.postLog = (settings, sourceMacAddress, action, message) => {
+  const optionEla = {
+    url: settings.elastic_url,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    json: {
+      date: new Date(),
+      action: action,
+      message: message,
+      macAddress: sourceMacAddress,
+    },
+  }
+  request(optionEla, function (error, response, body) {
+    if (!error) {
+      console.log(body)
     }
+  })
+}
 
+module.exports.getButtonConfig = async () => {
+  const result = await firebase.auth().signInWithEmailAndPassword(userInfo.userId, userInfo.password)
+  const user = firebase.auth().currentUser
+  // console.log(`displayName: ${user.displayName}`)
+  // console.log(`email: ${user.email}`)
+  // console.log(`emailVerified: ${user.emailVerified}`)
+  // console.log(`uid: ${user.uid}`)
 
-    for (let property in buttons) {
-        buttons[property].addListener(() => {
-            const now = moment();
-            const nowStr = now.format("YYYY/MM/DD HH:mm:ss");
-            console.log('Clicked.. ' + property + " Button. " + nowStr);
+  const buttons = {}
 
-            logger.main.info(buttons_config[property].mac_address);
+  try {
+    const db = firebaseApp.firestore()
+    const snapshot = await db.collection('app_settings/dash_button/buttons').get()
+    snapshot.forEach((doc) => {
+      let property = doc.id
+      let value = doc.data()
+      buttons[property] = value
+    })
+    console.log('デバイス情報:')
+    console.log(buttons)
+  } catch (err) {
+    console.log('Error getting documents', err)
+  }
+  return buttons
+}
 
-            delete buttons_config[property].mac_address; // request にmac_addressは不要
-            request(buttons_config[property], function (error, response, body) {
-                if (!error) {
-                    console.log(body);
-                }
-            });
-        });
-    }
-};
-
-me.pushButton();
+if (!module.parent) {
+  me.pushButton()
+}
