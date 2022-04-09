@@ -21,7 +21,7 @@
     "config": "^1.30.0",
     "dash-button": "^3.2.0",
     "log4js": "^1.1.1",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "firebase": "^7.2.0",
     "request": "^2.87.0"
   }
